@@ -1,0 +1,43 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+
+        <div class="col-md-6 mt-4">
+            <div class="card card-body">
+                <h5>Add User:</h5>
+                <hr>
+                <a class="btn btn-outline-info btn-sm btn-block" href="{% url 'crm-user-register' %}">Add User</a>
+            </div>
+        </div> 
+        <hr>
+        <div class="row">
+            <h5>User List</h5>
+            <hr>
+            <table class="table mt-2">
+                <thead>
+                    <tr class="table-info">
+                    <th scope="col">#</th>
+                    <th scope="col">User name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Detail View</th>
+                    </tr>
+                </thead>
+    
+                {% for user in users %}
+                <tr>
+                    <td  scope="row">{{ forloop.counter }} </td  >
+                    <td >{{ user.username }}</td >
+                    <td >{{ user.email }}</td >
+                    <td >{{ user.date_joined|date:'d-m-Y' }}</td >
+                    <td >
+                        <a class="btn btn-outline-info btn-sm mt-2" href="{% url 'crm-profile' user.id %}">View</a>
+                    </td >
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+{% endblock content %}

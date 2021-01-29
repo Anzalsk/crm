@@ -1,0 +1,57 @@
+{% extends "crm/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+
+        <div class="col-md-6">
+            <div class="card card-body">
+                <h5>Contact Information</h5>
+                <hr>
+                <p>Name:  {{ customer.name }}</p>
+                <p>Phone: {{ customer.phone }}</p>
+                <p>Email: {{ customer.email }}</p>
+                <p>Date: {{ customer.date_created | date:'d-m-Y' }}</p>
+            </div>
+         </div>
+
+        <div class="col-md-6">
+            <div class="card card-body">
+                <h5>Customer:</h5>
+                <hr>
+                <a class="btn btn-outline-info btn-sm btn-block" href="{% url 'crm-sales' customer.id %}">Add Sell </a>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'crm-update-customer' customer.id %}">Update Customer</a>
+                <a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'crm-delete-customer' customer.id %}">Delete Customer</a>
+            </div>
+        </div> 
+            
+    </div>
+            
+    <hr>
+        <div class="row">
+            <h4>Customer Sales History</h4>
+            <table class="table mt-1 ">
+                <thead>
+                    <tr class="table-primary">
+                    <th scope="col">Date</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>   
+                    <th scope="col">Total amount</th>
+                    <th scope="col"> Update</th>
+                    <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                    {% for cust_sale in customer_sale %}
+                        <tr>
+
+                        <td>{{ cust_sale.date_created|date:'d-m-Y' }}</td>
+                        <td>{{ cust_sale.product }}</td>
+                        <td>{{ cust_sale.quantity }}</td>
+                        <td>{{ cust_sale.total_amount }}</td>
+                        <td> <a class="btn btn-sm btn-info" href="{% url 'crm-update-sales' cust_sale.id  %}">Update</a></td> 
+                        <td> <a class="btn btn-sm btn-danger" href="{% url 'crm-delete-sales' cust_sale.id %}">Delete</a></td>   
+                        </tr>
+                    {% endfor %}
+            </table>
+        </div>
+</div>  
+{% endblock content %}

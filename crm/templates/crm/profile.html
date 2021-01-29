@@ -1,0 +1,37 @@
+{% extends "crm/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card card-body">
+                    <h5>User Information</h5>
+                    <hr>
+                    <p>Name: {{ user.username }} </p>
+                    <p>Name: {{ user.email }} </p>
+                    <p>Date: {{ user.date_joined|date:'d-m-Y' }}</p>
+                </div>
+            </div>   
+            <div class="col-md-6">
+                <div class="card card-body">
+                    <h5>User:</h5>
+                    <hr>
+                    <a class="btn btn-outline-success btn-sm btn-block" href="{% url 'crm-target' user.id %}">Add Traget</a>
+                    <a class="btn btn-outline-info btn-sm btn-block" href="{% url 'crm-update-target' user.id %}">Update Traget</a>
+                    <a class="btn btn-outline-primary btn-sm btn-block" href="{% url 'crm-user-update' user.id %}">Update User</a>
+                    <a class="btn btn-outline-danger btn-sm btn-block" href="{% url 'crm-user-delete' user.id %}">Delete User</a>
+                </div>
+            </div>       
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white text-center bg-info mb-3" >
+                    <h4 class="card-header">Target</h4>
+                    <div class="card-body">
+                        <h3>{{ user.profile.target }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+{% endblock content %}

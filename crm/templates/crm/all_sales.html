@@ -1,0 +1,53 @@
+{% extends "crm/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <div class="container"> 
+    <div class="row m-2">
+      <div class="col">
+        <div class="card card-body">
+          <form  method="get" style="display: flex;  gap: 25px;">
+            {{ myfilter.form|crispy }}
+          <button style="align-self: center;" class="btn btn-primary btn-sm" type="submit">Search</button>
+          </form>
+        </div>
+      </div> 
+    </div>   
+    <hr>   
+    <div class="row m-2">
+          <h5>All Sales</h5>
+          <hr>
+
+            <table class="table">
+     
+                  <tr class="table-success">
+                    <th scope="col">Date</th>
+                    <th scope="col">Name</th>
+                    {% if user.is_superuser %}
+                        <th scope="col">Owner</th>
+                    {% endif %}
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th> 
+                    <th scope="col">Amount</th>
+                    <th scope="col">Detail</th>  
+                  </tr>
+
+                  {% for sale in all_sale %}
+                    <tr>
+                        <th>{{ sale.date_created|date:'d-m-Y' }}</th>
+                        <th>{{ sale.customer }}</th>
+                        {% if user.is_superuser %}
+                            <th>{{ sale.owner }}</th>
+                        {% endif %}
+                        <th>{{ sale.product }}</th>   
+                        <th>{{ sale.quantity}}</th>  
+                        <th>{{ sale.total_amount}}</th>
+                        <th><a class="btn btn-sm btn-primary" href="{% url 'crm-detail' sale.customer.id %}">View</a></th>
+                    </tr>
+                  {% endfor %}
+              </table> 
+        </div>
+    </div>
+
+
+{% endblock content %}
