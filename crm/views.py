@@ -131,7 +131,7 @@ def detail(request, pk):
     customer = Customer.objects.get(id=pk) # Getting customer id
     customer_sale = customer.sale_set.all() # Getting all sales of that customer
     context = {
-        "customer":customer,
+        "customer":customer, #tets
         "customer_sale":customer_sale
     }
     return render(request, "crm/detail.html", context)
